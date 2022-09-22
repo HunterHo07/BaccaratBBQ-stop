@@ -53,7 +53,7 @@ def play_game():										        # Game start play
         check_card = Table_deck.pop(0)
         if check_card == "STOP":                    #check if the red card is draw
           Red_Card = True
-          print("STOP")
+          # print("STOP")
           check_card = Table_deck.pop(0)
         if i == 0: player1 = check_card							#player draw 1st card
         if i == 1: banker1 = check_card							#banker draw 2nd card
@@ -78,7 +78,6 @@ def play_game():										        # Game start play
             check_card = Table_deck.pop(0)
             if check_card == "STOP":                          #check if the red card is draw
               Red_Card = True
-              print("STOP")
               check_card = Table_deck.pop(0)
             player3 = check_card							                #player draw 3rd card
             player_hand = (player1 + player2 + player3) % 10	#Process player hands & -10 if the both cards add-up more than 10
@@ -88,7 +87,6 @@ def play_game():										        # Game start play
               check_card = Table_deck.pop(0)
               if check_card == "STOP":                        #check if the red card is draw
                 Red_Card = True
-                print("STOP")
                 check_card = Table_deck.pop(0)
               banker3 = check_card							              #banker draw 3rd card
               banker_hand = (banker1 + banker2 + banker3) % 10#Process banker hands & -10 if the both cards add-up more than 10
@@ -97,27 +95,26 @@ def play_game():										        # Game start play
             check_card = Table_deck.pop(0)
             if check_card == "STOP":                        #check if the red card is draw
               Red_Card = True
-              print("STOP")
               check_card = Table_deck.pop(0)
             banker3 = check_card							              #banker draw 3rd card
             banker_hand = (banker1 + banker2 + banker3) % 10#Process banker hands & -10 if the both cards add-up more than 10
 
       
-      print('Player_Hand:', player1, player2, player3,'=', player_hand)					#check player face-up cards
-      print('Banker_Hand:', banker1, banker2, banker3,'=', banker_hand)					#check banker face-up cards
+      # print('Player_Hand:', player1, player2, player3,'=', player_hand)					#check player face-up cards ***********************
+      # print('Banker_Hand:', banker1, banker2, banker3,'=', banker_hand)					#check banker face-up cards ***********************
       # print(Table_deck)									#check Decks after drew cards
 
       
       #check player or banker win or Tie
       if (player_hand > banker_hand):
         Win_results = "P"
-        print("P-WIN")
+        # print("P-WIN")
       elif (player_hand < banker_hand):
         Win_results = "B"
-        print("BB-WIN")
+        # print("BB-WIN")
       else:
         Win_results = "T"
-        print("TIE")
+        # print("TIE")
 
       #check if winning in row
       if Win_results_past == Win_results: 
@@ -133,6 +130,7 @@ def play_game():										        # Game start play
 
       # print(Win_results_past ,Win_results)            # Check each winning row
       Win_results_past = Win_results
-      print(Game_Count, Game_results)
+      # print(Game_Count, Game_results)
+  print(Game_Count, Game_results)
       
 play_game()
