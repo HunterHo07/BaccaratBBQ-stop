@@ -31,16 +31,34 @@ def create_shoe():
 Start_Play_Deck = create_shoe()							# Take the ready deck to action and start to play the game of baccarat
 def play_game():										# Game start play
     Table_deck = Start_Play_Deck						# Mirror the ready deck for this table (So we can always check back the original deck)
-    print(Table_deck)									#check original deck before play
+    # print(Table_deck)									#check original deck before play
     
+    #draw hand from the decks
     player1 = Table_deck.pop(0)							#player draw 1st card
     banker1 = Table_deck.pop(0)							#banker draw 1st card
     player2 = Table_deck.pop(0)							#player draw 2nd card
     banker2 = Table_deck.pop(0)							#banker draw 1st card
     
-    print(player1 ,player2)								#check player face-up cards
-    print(banker1, banker2)								#check banker face-up cards
-    print(Table_deck)									#check Decks after drew cards
+    # print(player1 ,player2)								#check player face-up cards
+    # print(banker1, banker2)								#check banker face-up cards
+    # print(Table_deck)									#check Decks after drew cards
+    
+    #check player & banker hand total value
+    player_hand = (player1 + player2) % 10				#Process player hands & -10 if the both cards add-up more than 10
+    banker_hand = (banker1 + banker2) % 10				#Process banker hands & -10 if the both cards add-up more than 10
+    
+    print('Player_Hand:', player1, player2, 'Total:', player_hand)					#check player face-up cards
+    print('banker_Hand:', banker1, banker2, 'Total:', banker_hand)					#check banker face-up cards
+    
+    if (player_hand < 8 and banker_hand < 8):			#if no natural win then check for 3rd card draw for player or banker
+        return 0
+    else:
+        if (player_hand > banker_hand ):
+            print('player win')
+        elif (player_hand < banker_hand ):
+            print('banker win')
+        else:
+            print('tie')
     
 
 play_game()
