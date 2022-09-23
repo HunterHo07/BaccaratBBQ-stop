@@ -32,9 +32,8 @@ def create_shoe():
 
 #Step 2
 # Play the game
-Start_Play_Deck = create_shoe()							# Take the ready deck to action and start to play the game of baccarat
-Table_Number = 0                            # Table Number as record
 def play_game():										        # Game start play
+  Start_Play_Deck = create_shoe()							# Take the ready deck to action and start to play the game of baccarat
   Game_results = []                         # record game results
   Win_row = 1                               # record same winning side count / Start with 1
   Win_results = ""                        # record which side winning, P, B, T
@@ -131,6 +130,11 @@ def play_game():										        # Game start play
       # print(Win_results_past ,Win_results)            # Check each winning row
       Win_results_past = Win_results
       # print(Game_Count, Game_results)
-  print(Game_Count, Game_results)
+  return(Game_Count, Game_results)
       
-play_game()
+
+# Step 3 play many tables simulation
+for i in range(1,10001):  #10k results about 4.5sec
+  # print(i,play_game())
+  # print("Test")
+  play_game()
