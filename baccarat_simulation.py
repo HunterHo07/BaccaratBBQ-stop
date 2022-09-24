@@ -157,7 +157,65 @@ def test_1():
     
   print("Player:",Player , round(Player_per,2) ,"| Banker:", Banker, round(Banker_per,2),  " | Total:",Total)
 
-test_1()
+# test_1()
+
+
+
+
+
+def test_case():
+  results = play_game()       # Take the results from random game
+  results = results[1]        # take out the number of the game
+  results_test1=results
+
+  # Clean up the test results
+  while results_test1[0][0] == "P" or results_test1[0][0] == "T":  # pop 1st T or P
+    results_test1 = results_test1[1:]
+  while results_test1[2][0] == "P" or results_test1[2][0] == "T":
+    results_test1.pop(2)
+
+  # print(results)
+  # print(results_test1)
+  return(results_test1)
+      
+
+# Step 4 play many tables simulation
+def test_2():
+  skip  = 0                   # count skip condition meet
+  win   = 0
+  lose  = 0
+  for i in range(1,10001):  #10k results about 4.5sec
+    # print(i,test_case())
+    # print("Test")
+    # play_game()
+
+    #test case for testing simulation (skip-4 1-B3 or 2-B3)
+    test_1 = test_case()
+    #test case after skip & bet
+    # > 0 = -2910 vs 4236 = 1326  Win =  2118  | Lose = 970   | 0.1326
+    # > 1 = -1470 vs 2086 = 616
+    # > 2 = -1065 vs 1358 = 293
+    # > 3 = -726 vs 1054  = 328
+    if skip > 0:
+      # print("start")
+      if int(test_1[0][1]) > 2 or int(test_1[2][1]) > 2:
+        lose += 1
+      else:
+        win += 1
+      skip = 0
+      # print("Win = ",win, " | Lose =", lose)
+
+
+    if int(test_1[0][1]) > 2 or int(test_1[2][1]) > 2:
+      skip+=1
+      # print("Skip", skip)
+
+
+
+    # print(i,  "=" ,test_1)
+  print("Win = ",win, " | Lose =", lose)
+
+test_2()
 
 
 
