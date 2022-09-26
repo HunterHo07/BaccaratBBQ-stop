@@ -363,52 +363,34 @@ def test_5():
 
 # Step 5 play many tables simulation
 def test_6():
-  B_lose  = 0
-  P_win   = 0
-  B_lose_1   = 0
-  P_win_1  = 0
+  P_P1 = 0
+  P_P2 = 0
+  P_P3 = 0
+  P_P4 = 0
+  P_P5 = 0
+  P_P6 = 0
   skip    = 0   # wait for condition
   for i in range(1,10001):  #10k results about 4.5sec
     test_1 = test_case()       # Take the results from random game
     # print(test_1)
 
-    if skip > 3:
-      # skip =0
-      # Bet all & Check
-      #Bet-1
-      if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-        B_lose+=3
-        skip =0
-      else:
-        P_win+=1
-
-        #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-          B_lose+=3
-          skip =0
-        else:
-          P_win+=1
-    if int(test_1[0][1]) < 3 and int(test_1[2][1]) < 3:
-      skip+=1
-
-
-    if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-      B_lose_1+=3
+    if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      P_P1+=1
     else:
-      P_win_1+=1
+      P_P2+=1
 
-      #Bet-2
-      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-        B_lose_1+=3
-      else:
-        P_win_1+=1
+    if int(test_1[2][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      P_P3+=1
+    else:
+      P_P4+=1
 
+    if int(test_1[4][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      P_P5+=1
+    else:
+      P_P6+=1
+
+      
     # print(i,  "=" ,test_1)
-  total = P_win - B_lose
-  total_1 = P_win_1 - B_lose_1
-  total_2 = P_win_1 + B_lose_1
-  total_per = (P_win / total_2) * 100 #2.3 - 5.51
-  print("Win-1:", round(P_win,2) , " | Lose-2:", round(B_lose,2) , " || Total:", round(total,2))
-  print("Win-1_1:", round(P_win_1,2) , " | Lose-2:", round(B_lose_1,2) , " || Total:", round(total_1,2), " | ",round(total_per,2))
+  print("P1:", round(P_P1,2) , "P2:", round(P_P2,2) ,"P3:", round(P_P3,2) ,"P4:", round(P_P4,2) ,"P5:", round(P_P5,2) ,"P6:", round(P_P6,2) ,)
 
 test_6()
