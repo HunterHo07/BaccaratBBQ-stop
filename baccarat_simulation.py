@@ -116,8 +116,10 @@ def play_game():										        # Game start play
         win_b+=1
         # print("BB-WIN")
       else:
-        Win_results = "T"
         # print("TIE")
+        # Win_results = "T"           # Skip Tie
+        Win_row -= 1
+        pass
 
       #check if winning in row
       if Win_results_past == Win_results: 
@@ -125,10 +127,10 @@ def play_game():										        # Game start play
       elif Win_results_past == '':
         pass
       else:
-        Game_results = Game_results + [Win_results+str(Win_row)]
+        Game_results = Game_results + [Win_results_past+str(Win_row)]
         Win_row = 1
       if Red_Card == True:
-        Game_results = Game_results + [Win_results+str(Win_row)]
+        Game_results = Game_results + [Win_results_past+str(Win_row)]
 
 
       # print(Win_results_past ,Win_results)            # Check each winning row
@@ -136,6 +138,8 @@ def play_game():										        # Game start play
       # print(Game_Count, Game_results)
   return(Game_Count, Game_results, win_p, win_b)
 
+
+play_game()
 
 
 # Step 3 Test check simulation results is correct of 49 vs 51
@@ -162,7 +166,7 @@ def test_1():
 
 
 
-
+#remove P & T
 def test_case():
   results = play_game()       # Take the results from random game
   results = results[1]        # take out the number of the game
@@ -177,6 +181,9 @@ def test_case():
   # print(results)
   # print(results_test1)
   return(results_test1)
+
+
+
       
 
 # Step 4 play many tables simulation
@@ -192,11 +199,7 @@ def test_2():
     #test case for testing simulation (skip-4 1-B3 or 2-B3)
     test_1 = test_case()
     #test case after skip & bet
-    # > 0 = -2910 vs 4236 = 1326  Win =  2118  | Lose = 970   | 0.1326
-    # > 1 = -1470 vs 2086 = 616
-    # > 2 = -1065 vs 1358 = 293
-    # > 3 = -726 vs 1054  = 328
-    if skip > 0:
+    if skip > 3:
       # print("start")
       if int(test_1[0][1]) > 2 or int(test_1[2][1]) > 2:
         lose += 1
@@ -215,7 +218,197 @@ def test_2():
     # print(i,  "=" ,test_1)
   print("Win = ",win, " | Lose =", lose)
 
-test_2()
+# test_2()
 
 
 
+
+
+
+# Step 5 play many tables simulation
+def test_3():
+  win   = 0
+  lose  = 0
+  for i in range(1,1001):  #10k results about 4.5sec
+    test_1 = test_case()       # Take the results from random game
+    # print(test_1)
+
+    # Bet all & Check
+    #Bet-1
+    if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+      win+=2.85
+    else:
+      if int(test_1[0][1]) == 1:
+        lose+=1
+      if int(test_1[0][1]) == 2:
+        lose+=1.05
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        win+=2.85
+      else:
+        if int(test_1[2][1]) == 1:
+          lose+=1
+        if int(test_1[2][1]) == 2:
+          lose+=1.05
+
+    # print(i,  "=" ,test_1)
+    total = win - lose
+  print("Lose-1:", round(lose,2) , " | Win-2:", round(win,2) , " || Total:", round(total,2))
+
+# test_3()
+
+
+# Step 5 play many tables simulation
+def test_4():
+  win   = 0
+  lose  = 0
+  win_1 = 0
+  lose_1= 0
+  skip  = 0   # wait for condition
+  for i in range(1,1001):  #10k results about 4.5sec
+    test_1 = test_case()       # Take the results from random game
+    # print(test_1)
+
+    if skip > 1:
+      skip =0
+      # Bet all & Check
+      #Bet-1
+      if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        win+=2.85
+      else:
+        if int(test_1[0][1]) == 1:
+          lose+=1
+        if int(test_1[0][1]) == 2:
+          lose+=1.05
+
+        #Bet-2
+        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          win+=2.85
+        else:
+          if int(test_1[2][1]) == 1:
+            lose+=1
+          if int(test_1[2][1]) == 2:
+            lose+=1.05
+    if int(test_1[0][1]) < 3 and int(test_1[2][1]) < 3:
+      skip+=1
+
+
+    if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        win_1+=2.85
+    else:
+      if int(test_1[0][1]) == 1:
+        lose_1+=1
+      if int(test_1[0][1]) == 2:
+        lose_1+=1.05
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win_1 in the row
+        win_1+=2.85
+      else:
+        if int(test_1[2][1]) == 1:
+          lose_1+=1
+        if int(test_1[2][1]) == 2:
+          lose_1+=1.05
+
+    # print(i,  "=" ,test_1)
+  total = win - lose
+  total_1 = win_1 - lose_1
+  total_2 = win_1 + lose_1
+  total_per = (win_1 / total_2) * 100 #2.3 - 5.51
+  print("Lose-1:", round(lose,2) , " | Win-2:", round(win,2) , " || Total:", round(total,2))
+  print("Lose-1_1:", round(lose_1,2) , " | Win-2:", round(win_1,2) , " || Total:", round(total_1,2), " | ",round(total_per,2))
+
+# test_4()
+
+
+
+
+
+
+
+# Step 5 play many tables simulation
+def test_5():
+  W_win   = 0
+  L_lose  = 0
+  for i in range(1,1001):  #10k results about 4.5sec
+    test_1 = test_case()       # Take the results from random game
+    # print(test_1)
+
+    # Bet all & Check
+    #Bet-1
+    if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+      L_lose+=3
+    else:
+      W_win+=1
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        L_lose+=3
+      else:
+        W_win+=1
+
+    # print(i,  "=" ,test_1)
+    # print("Win-1:", round(W_win,2) , " | Win-2:", round(L_lose,2) , " || Total:", round(total,2))
+  total = W_win - L_lose
+  total_1 = W_win + L_lose
+  total_per = (W_win / total_1) * 100 #2.3 - 5.51
+  print("Win-1:", round(W_win,2) , " | Lose-2:", round(L_lose,2) , " || Total:", round(total,2) , "|", round(total_per,2))
+
+# test_5()
+
+
+
+
+
+# Step 5 play many tables simulation
+def test_6():
+  B_lose  = 0
+  P_win   = 0
+  B_lose_1   = 0
+  P_win_1  = 0
+  skip    = 0   # wait for condition
+  for i in range(1,10001):  #10k results about 4.5sec
+    test_1 = test_case()       # Take the results from random game
+    # print(test_1)
+
+    if skip > 3:
+      # skip =0
+      # Bet all & Check
+      #Bet-1
+      if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        B_lose+=3
+        skip =0
+      else:
+        P_win+=1
+
+        #Bet-2
+        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          B_lose+=3
+          skip =0
+        else:
+          P_win+=1
+    if int(test_1[0][1]) < 3 and int(test_1[2][1]) < 3:
+      skip+=1
+
+
+    if int(test_1[0][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+      B_lose_1+=3
+    else:
+      P_win_1+=1
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        B_lose_1+=3
+      else:
+        P_win_1+=1
+
+    # print(i,  "=" ,test_1)
+  total = P_win - B_lose
+  total_1 = P_win_1 - B_lose_1
+  total_2 = P_win_1 + B_lose_1
+  total_per = (P_win / total_2) * 100 #2.3 - 5.51
+  print("Win-1:", round(P_win,2) , " | Lose-2:", round(B_lose,2) , " || Total:", round(total,2))
+  print("Win-1_1:", round(P_win_1,2) , " | Lose-2:", round(B_lose_1,2) , " || Total:", round(total_1,2), " | ",round(total_per,2))
+
+test_6()
