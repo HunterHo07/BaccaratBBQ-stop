@@ -1,5 +1,6 @@
 import random
 from math import *
+from unittest import skip
 
 show1 = 0
 
@@ -175,8 +176,8 @@ def test_case():
   # Clean up the test results
   while results_test1[0][0] == "P" or results_test1[0][0] == "T":  # pop 1st T or P
     results_test1 = results_test1[1:]
-  while results_test1[2][0] == "P" or results_test1[2][0] == "T":
-    results_test1.pop(2)
+  # while results_test1[2][0] == "P" or results_test1[2][0] == "T":
+  #   results_test1.pop(2)
 
   # print(results)
   # print(results_test1)
@@ -391,6 +392,117 @@ def test_6():
 
       
     # print(i,  "=" ,test_1)
-  print("P1:", round(P_P1,2) , "P2:", round(P_P2,2) ,"P3:", round(P_P3,2) ,"P4:", round(P_P4,2) ,"P5:", round(P_P5,2) ,"P6:", round(P_P6,2) ,)
+  print("BB1:", round(P_P1,2) , "BP1:", round(P_P2,2) ,"BB2:", round(P_P3,2) ,"BP2:", round(P_P4,2) ,"BB3:", round(P_P5,2) ,"BP3:", round(P_P6,2) ,)
 
-test_6()
+# test_6()
+
+
+
+
+
+# Step 5 play many tables simulation
+def test_7():
+  W1_win   = 0
+  L1_lose  = 0
+  W2_win   = 0
+  L2_lose  = 0
+  W3_win   = 0
+  L3_lose  = 0
+  skip     = 0 
+  skip1    = 0 
+  skip_win = 0 
+  for i in range(1,100001):  #10k results about 4.5sec
+    test_1 = test_case()       # Take the results from random game
+    # print(test_1)
+
+    # Bet all & Check
+    #Bet-1
+    if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      L1_lose+=1
+    else:
+      W1_win+=1
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        L1_lose+=3
+      else:
+        W1_win+=1
+
+        #Bet-3
+        if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          L1_lose+=3
+        else:
+          W1_win+=1
+
+
+    if skip > 2:
+      #Bet-1
+      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+        L2_lose+=1
+        skip = 0
+      else:
+        W2_win+=1
+
+        #Bet-2
+        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          L2_lose+=3
+          skip = 0
+        else:
+          W2_win+=1
+
+          #Bet-3
+          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+            L2_lose+=3
+            skip = 0
+          else:
+            W2_win+=1
+    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+      skip+=1
+
+
+    #Bet-1
+    if skip1 > 3:
+      #Bet-1
+      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+        L3_lose+=1
+        skip1 = 0
+      else:
+        W3_win+=1
+
+        #Bet-2
+        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          L3_lose+=3
+          skip1 = 0
+        else:
+          W3_win+=1
+
+          #Bet-3
+          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+            L3_lose+=3
+            skip1 = 0
+          else:
+            W3_win+=1
+    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+      skip1+=1
+
+
+
+    # print(i,  "=" ,test_1)
+    # print("Win-1:", round(W_win,2) , " | Win-2:", round(L_lose,2) , " || Total:", round(total,2))
+  total3 = W3_win - L3_lose
+  total_3 = W3_win + L3_lose
+  total_per3 = (W3_win / total_3) * 100 #2.3 - 5.51
+  total2 = W2_win - L2_lose
+  total_2 = W2_win + L2_lose
+  total_per2 = (W2_win / total_2) * 100 #2.3 - 5.51
+  total1 = W1_win - L1_lose
+  total_1 = W1_win + L1_lose
+  total_per1 = (W1_win / total_1) * 100 #2.3 - 5.51
+  print("1-2 Win-3:", round(W3_win,2) , " | Lose-3:", round(L3_lose,2) , " || Total:", round(total3,2) , "|", round(total_per3,2))
+  print("1-1 Win-2:", round(W2_win,2) , " | Lose-2:", round(L2_lose,2) , " || Total:", round(total2,2) , "|", round(total_per2,2))
+  print("1-0 Win-1:", round(W1_win,2) , " | Lose-2:", round(L1_lose,2) , " || Total:", round(total1,2) , "|", round(total_per1,2))
+
+# 1-2 Win-3: 171814  | Lose-3: 175404  || Total: -3590 | 49.48
+# 1-1 Win-2: 146853  | Lose-2: 150006  || Total: -3153 | 49.47
+# 1-0 Win-1: 114308  | Lose-2: 116377  || Total: -2069 | 49.55
+test_7()
