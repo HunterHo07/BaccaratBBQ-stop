@@ -461,29 +461,36 @@ def test_7():
 
 
     #Bet-1
-    if skip1 > 3:
+    if skip1 > 2:
       #Bet-1
       if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L3_lose+=1
-        skip1 = 0
+        skip1=0
       else:
         W3_win+=1
+        skip_win+=1
 
         #Bet-2
         if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L3_lose+=3
-          skip1 = 0
+          skip1=0
         else:
           W3_win+=1
+          skip_win+=1
 
           #Bet-3
           if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L3_lose+=3
-            skip1 = 0
+            skip1=0
           else:
             W3_win+=1
+            skip_win+=1
+
     if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
       skip1+=1
+    if skip_win > 2:
+      skip_win=0
+      skip1=0
 
 
 
