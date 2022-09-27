@@ -411,6 +411,7 @@ def test_7():
   skip     = 0 
   skip1    = 0 
   skip_win = 0 
+  skip1_win= 0
   for i in range(1,100001):  #10k results about 4.5sec
     test_1 = test_case()       # Take the results from random game
     # print(test_1)
@@ -435,29 +436,37 @@ def test_7():
           W1_win+=1
 
 
+    #Bet-1
     if skip > 2:
       #Bet-1
       if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L2_lose+=1
-        skip = 0
+        skip=0
       else:
         W2_win+=1
+        skip_win+=1
 
         #Bet-2
         if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-          L2_lose+=3
-          skip = 0
+          L2_lose+=1
+          skip=0
         else:
           W2_win+=1
+          skip_win+=1
 
           #Bet-3
           if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L2_lose+=3
-            skip = 0
+            skip=0
           else:
             W2_win+=1
+            skip_win+=1
+
     if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
       skip+=1
+    if skip_win > 8:
+      skip_win=0
+      skip=0
 
 
     #Bet-1
@@ -468,15 +477,15 @@ def test_7():
         skip1=0
       else:
         W3_win+=1
-        skip_win+=1
+        skip1_win+=1
 
         #Bet-2
         if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-          L3_lose+=3
+          L3_lose+=1
           skip1=0
         else:
           W3_win+=1
-          skip_win+=1
+          skip1_win+=1
 
           #Bet-3
           if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
@@ -484,12 +493,12 @@ def test_7():
             skip1=0
           else:
             W3_win+=1
-            skip_win+=1
+            skip1_win+=1
 
     if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
       skip1+=1
-    if skip_win > 2:
-      skip_win=0
+    if skip1_win > 7:
+      skip1_win=0
       skip1=0
 
 
