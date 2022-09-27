@@ -514,11 +514,12 @@ def test_7():
   total1 = W1_win - L1_lose
   total_1 = W1_win + L1_lose
   total_per1 = (W1_win / total_1) * 100 #2.3 - 5.51
-  print("1-2 Win-3:", round(W3_win,2) , " | Lose-3:", round(L3_lose,2) , " || Total:", round(total3,2) , "|", round(total_per3,2))
-  print("1-1 Win-2:", round(W2_win,2) , " | Lose-2:", round(L2_lose,2) , " || Total:", round(total2,2) , "|", round(total_per2,2))
-  print("1-0 Win-1:", round(W1_win,2) , " | Lose-2:", round(L1_lose,2) , " || Total:", round(total1,2) , "|", round(total_per1,2))
+  print("1-0 Win-1:", round(W1_win,2) , " | Lose-1:", round(L1_lose,2) , " || Total-1:", round(total1,2) , "|", round(total_per1,2))
+  print("1-1 Win-2:", round(W2_win,2) , " | Lose-2:", round(L2_lose,2) , " || Total-2:", round(total2,2) , "|", round(total_per2,2))
+  print("1-2 Win-3:", round(W3_win,2) , " | Lose-3:", round(L3_lose,2) , " || Total-3:", round(total3,2) , "|", round(total_per3,2))
 
-# 1-2 Win-3: 171814  | Lose-3: 175404  || Total: -3590 | 49.48
-# 1-1 Win-2: 146853  | Lose-2: 150006  || Total: -3153 | 49.47
-# 1-0 Win-1: 114308  | Lose-2: 116377  || Total: -2069 | 49.55
+# 1-2 Win-3: 3005  | Lose-3: 2451  || Total: 554 | 55.08
+# 1-1 Win-2: 3008  | Lose-2: 2478  || Total: 530 | 54.83
+# 1-0 Win-1: 113706  | Lose-2: 115821  || Total: -2115 | 49.54
 test_7()
+#tested results with 4%~ +EV
