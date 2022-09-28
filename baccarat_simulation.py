@@ -402,19 +402,62 @@ def test_6():
 
 # Step 5 play many tables simulation
 def test_7():
+  W_win   = 0
+  L_lose  = 0
   W1_win   = 0
   L1_lose  = 0
   W2_win   = 0
   L2_lose  = 0
   W3_win   = 0
   L3_lose  = 0
+  W4_win   = 0
+  L4_lose  = 0
+  W5_win   = 0
+  L5_lose  = 0
   skip     = 0 
   skip1    = 0 
-  skip_win = 0 
+  skip2    = 0 
+  skip3    = 0 
+  skip4    = 0 
+  skip5    = 0 
+  skip_win = 0
   skip1_win= 0
+  skip2_win= 0 
+  skip3_win= 0
+  skip4_win= 0
+  skip5_win= 0
   for i in range(1,100001):  #10k results about 4.5sec
     test_1 = test_case()       # Take the results from random game
     # print(test_1)
+
+
+
+# Bet all & Check
+    #Bet-1
+    if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      W_win+=0.95
+    else:
+      L_lose+=1
+
+      #Bet-2
+      if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        W_win+=2.85
+      else:
+        if int(test_1[2][1]) == 1: L_lose+=1
+        if int(test_1[2][1]) == 2: L_lose+=1.05
+
+        #Bet-3
+        if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          W_win+=2.85
+        else:
+          if int(test_1[2][1]) == 1: L_lose+=1
+          if int(test_1[2][1]) == 2: L_lose+=1.05
+
+
+
+
+
+
 
     # Bet all & Check
     #Bet-1
@@ -448,7 +491,7 @@ def test_7():
 
         #Bet-2
         if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-          L2_lose+=1
+          L2_lose+=3
           skip=0
         else:
           W2_win+=1
@@ -464,7 +507,7 @@ def test_7():
 
     if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
       skip+=1
-    if skip_win > 8:
+    if skip_win > 7:
       skip_win=0
       skip=0
 
@@ -481,7 +524,7 @@ def test_7():
 
         #Bet-2
         if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
-          L3_lose+=1
+          L3_lose+=3
           skip1=0
         else:
           W3_win+=1
@@ -497,7 +540,7 @@ def test_7():
 
     if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
       skip1+=1
-    if skip1_win > 7:
+    if skip1_win > 6:
       skip1_win=0
       skip1=0
 
@@ -505,18 +548,37 @@ def test_7():
 
     # print(i,  "=" ,test_1)
     # print("Win-1:", round(W_win,2) , " | Win-2:", round(L_lose,2) , " || Total:", round(total,2))
+  total5 = W5_win - L5_lose
+  total_5 = W5_win + L5_lose
+  if total_5 == 0 : total_per5 = 0 
+  else : total_per5 = (W5_win / total_5) * 100 - 50 #2.3 - 5.51
+  total4 = W4_win - L4_lose
+  total_4 = W4_win + L4_lose
+  if total_4 == 0 : total_per4 = 0
+  else:  total_per4 = (W4_win / total_4) * 100 - 50 #2.3 - 5.51
   total3 = W3_win - L3_lose
   total_3 = W3_win + L3_lose
-  total_per3 = (W3_win / total_3) * 100 #2.3 - 5.51
+  if total_3 == 0 : total_per3 = 0
+  else:total_per3 = (W3_win / total_3) * 100 - 50 #2.3 - 5.51
   total2 = W2_win - L2_lose
   total_2 = W2_win + L2_lose
-  total_per2 = (W2_win / total_2) * 100 #2.3 - 5.51
+  if total_2 == 0 : total_per2 = 0
+  else:total_per2 =  (W2_win / total_2) * 100 - 50 #2.3 - 5.51
   total1 = W1_win - L1_lose
   total_1 = W1_win + L1_lose
-  total_per1 = (W1_win / total_1) * 100 #2.3 - 5.51
-  print("1-0 Win-1:", round(W1_win,2) , " | Lose-1:", round(L1_lose,2) , " || Total-1:", round(total1,2) , "|", round(total_per1,2))
-  print("1-1 Win-2:", round(W2_win,2) , " | Lose-2:", round(L2_lose,2) , " || Total-2:", round(total2,2) , "|", round(total_per2,2))
-  print("1-2 Win-3:", round(W3_win,2) , " | Lose-3:", round(L3_lose,2) , " || Total-3:", round(total3,2) , "|", round(total_per3,2))
+  if total_1 == 0 : total_per1 = 0
+  else: total_per1 = (W1_win / total_1) * 100 - 50 #2.3 - 5.51
+  total = W_win - L_lose
+  total_0 = W_win + L_lose
+  if total_0 == 0 : total_per = 0
+  else: total_per = (W_win / total_0) * 100 - 50 #2.3 - 5.51
+  print("0 Win:", round(W_win,2) , " | Lose:", round(L_lose,2) , " || Total:", round(total_0,2) , "| EV", round(total_per,2) , " || Profit/loss:", round(total,2) ,)
+  print("1 Win:", round(W1_win,2) , " | Lose:", round(L1_lose,2) , " || Total:", round(total_1,2) , "| EV", round(total_per1,2), " || Profit/loss:", round(total1,2) ,)
+  print("2 Win:", round(W2_win,2) , " | Lose:", round(L2_lose,2) , " || Total:", round(total_2,2) , "| EV", round(total_per2,2), " || Profit/loss:", round(total2,2) ,)
+  print("3 Win:", round(W3_win,2) , " | Lose:", round(L3_lose,2) , " || Total:", round(total_3,2) , "| EV", round(total_per3,2), " || Profit/loss:", round(total3,2) ,)
+  print("4 Win:", round(W4_win,2) , " | Lose:", round(L4_lose,2) , " || Total:", round(total_4,2) , "| EV", round(total_per4,2), " || Profit/loss:", round(total4,2) ,)
+  print("5 Win:", round(W5_win,2) , " | Lose:", round(L5_lose,2) , " || Total:", round(total_5,2) , "| EV", round(total_per5,2), " || Profit/loss:", round(total5,2) ,)
+
 
 # 1-2 Win-3: 3005  | Lose-3: 2451  || Total: 554 | 55.08
 # 1-1 Win-2: 3008  | Lose-2: 2478  || Total: 530 | 54.83
