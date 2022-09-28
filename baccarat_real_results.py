@@ -12,24 +12,24 @@ with open('real_results/bac1.txt') as f:
 
 results_holder = []
 #get the 25,000 results & clean it
-for i in range(25000):
+for i in range(5):
     results_holder = results_holder + [lines[i] + str("S")]
 
 # remove all Tie from the results
-results_holder = [s.replace(',T', '') for s in results_holder] # 
-results_holder = [s.replace('T', '') for s in results_holder] # 
-results_holder = [s.replace('0', '') for s in results_holder] #
-results_holder = [s.replace('1', '') for s in results_holder] #
-results_holder = [s.replace('2', '') for s in results_holder] #
-results_holder = [s.replace('3', '') for s in results_holder] #
-results_holder = [s.replace('4', '') for s in results_holder] #
-results_holder = [s.replace('5', '') for s in results_holder] #
-results_holder = [s.replace('6', '') for s in results_holder] #
-results_holder = [s.replace('7', '') for s in results_holder] #
-results_holder = [s.replace('8', '') for s in results_holder] #
-results_holder = [s.replace('9', '') for s in results_holder] #
+# replacers = {',':'','1':'','2':'','3':'','4':'','5':'','6':'','7':'','8':'','9':'','0':'','T':''}
+results_holder = [s.replace('T', '').replace('0', '').replace('1', '').replace('2', '').replace('3', '').replace('4', '').replace('5', '').replace('6', '').replace('7', '').replace('8', '').replace('9', '').replace(',', '') for s in results_holder] #
+# results_holder = [s.replace(replacers) for s in results_holder] # 
+# results_holder = [s.replace('1', '') for s in results_holder] #
+# results_holder = [s.replace('2', '') for s in results_holder] #
+# results_holder = [s.replace('3', '') for s in results_holder] #
+# results_holder = [s.replace('4', '') for s in results_holder] #
+# results_holder = [s.replace('5', '') for s in results_holder] #
+# results_holder = [s.replace('6', '') for s in results_holder] #
+# results_holder = [s.replace('7', '') for s in results_holder] #
+# results_holder = [s.replace('8', '') for s in results_holder] #
+# results_holder = [s.replace('9', '') for s in results_holder] #
 # remove all , from the results
-results_holder = [s.replace(',', '') for s in results_holder] # 
+# results_holder = [s.replace(',', '') for s in results_holder] # 
 
 # print(results_holder)
 
@@ -104,37 +104,38 @@ def test_7():
 
     # Bet all & Check
     #Bet-1
-    # if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+    # if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
     #   W_win+=0.95
     # else:
     #   L_lose+=1
 
     #   #Bet-2
-    #   if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+    #   if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
     #     W_win+=2.85
     #   else:
-    #     if int(test_1[2][1]) == 1: L_lose+=1
-    #     if int(test_1[2][1]) == 2: L_lose+=1.05
+    #     if int(test_1[2][1:]) == 1: L_lose+=1
+    #     if int(test_1[2][1:]) == 2: L_lose+=1.05
 
     #     #Bet-3
-    #     if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+    #     if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
     #       W_win+=2.85
     #     else:
-    #       if int(test_1[2][1]) == 1: L_lose+=1
-    #       if int(test_1[2][1]) == 2: L_lose+=1.05
-    if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
-      L_lose+=1
+    #       if int(test_1[2][1:]) == 1: L_lose+=1
+    #       if int(test_1[2][1:]) == 2: L_lose+=1.05
+    # print(test_1[0][1:])
+    if int(test_1[0][1:]) > 9:  #if 1st or 2nd B- is more than 3 win in the row
+      L_lose+=127
     else:
       W_win+=1
 
       # #Bet-2
-      # if int(test_1[2][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      # if int(test_1[2][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
       #   L_lose+=1
       # else:
       #   W_win+=1
 
         # #Bet-3
-        # if int(test_1[4][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+        # if int(test_1[4][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         #   L_lose+=1
         # else:
         #   W_win+=1
@@ -146,7 +147,7 @@ def test_7():
     #Bet-1
     if skip1 > 2:
       #Bet-1
-      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L1_lose+=1
         skip1=0
       else:
@@ -154,7 +155,7 @@ def test_7():
         skip1_win+=1
 
         #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L1_lose+=3
           skip1=0
         else:
@@ -162,14 +163,14 @@ def test_7():
           skip1_win+=1
 
           #Bet-3
-          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L1_lose+=3
             skip1=0
           else:
             W1_win+=1
             skip1_win+=1
 
-    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+    if int(test_1[0][1:]) > 2 and int(test_1[2][1:]) > 2:
       skip1+=1
     if skip1_win > 8:
       skip1_win=0
@@ -184,7 +185,7 @@ def test_7():
     #Bet-1
     if skip2 > 2:
       #Bet-1
-      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L2_lose+=1
         skip2=0
       else:
@@ -192,7 +193,7 @@ def test_7():
         skip2_win+=1
 
         #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L2_lose+=3
           skip2=0
         else:
@@ -200,14 +201,14 @@ def test_7():
           skip2_win+=1
 
           #Bet-3
-          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L2_lose+=3
             skip2=0
           else:
             W2_win+=1
             skip2_win+=1
 
-    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+    if int(test_1[0][1:]) > 2 and int(test_1[2][1:]) > 2:
       skip2+=1
     if skip2_win > 7:
       skip2_win=0
@@ -222,7 +223,7 @@ def test_7():
     #Bet-1
     if skip3 > 2:
       #Bet-1
-      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L3_lose+=1
         skip3=0
       else:
@@ -230,7 +231,7 @@ def test_7():
         skip3_win+=1
 
         #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L3_lose+=3
           skip3=0
         else:
@@ -238,14 +239,14 @@ def test_7():
           skip3_win+=1
 
           #Bet-3
-          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L3_lose+=3
             skip3=0
           else:
             W3_win+=1
             skip3_win+=1
 
-    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+    if int(test_1[0][1:]) > 2 and int(test_1[2][1:]) > 2:
       skip3+=1
     if skip3_win > 6:
       skip3_win=0
@@ -260,7 +261,7 @@ def test_7():
     #Bet-1
     if skip4 > 2:
       #Bet-1
-      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L4_lose+=1
         skip4=0
       else:
@@ -268,7 +269,7 @@ def test_7():
         skip4_win+=1
 
         #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L4_lose+=3
           skip4=0
         else:
@@ -276,14 +277,14 @@ def test_7():
           skip4_win+=1
 
           #Bet-3
-          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L4_lose+=3
             skip4=0
           else:
             W4_win+=1
             skip4_win+=1
 
-    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+    if int(test_1[0][1:]) > 2 and int(test_1[2][1:]) > 2:
       skip4+=1
     if skip4_win > 5:
       skip4_win=0
@@ -298,7 +299,7 @@ def test_7():
     #Bet-1
     if skip5 > 2:
       #Bet-1
-      if int(test_1[0][1]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
+      if int(test_1[0][1:]) > 1:  #if 1st or 2nd B- is more than 3 win in the row
         L5_lose+=1
         skip5=0
       else:
@@ -306,7 +307,7 @@ def test_7():
         skip5_win+=1
 
         #Bet-2
-        if int(test_1[2][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+        if int(test_1[2][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
           L5_lose+=3
           skip5=0
         else:
@@ -314,14 +315,14 @@ def test_7():
           skip5_win+=1
 
           #Bet-3
-          if int(test_1[4][1]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
+          if int(test_1[4][1:]) > 2:  #if 1st or 2nd B- is more than 3 win in the row
             L5_lose+=3
             skip5=0
           else:
             W5_win+=1
             skip5_win+=1
 
-    if int(test_1[0][1]) > 2 and int(test_1[2][1]) > 2:
+    if int(test_1[0][1:]) > 2 and int(test_1[2][1:]) > 2:
       skip5+=1
     if skip5_win > 4:
       skip5_win=0
